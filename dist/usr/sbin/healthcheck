@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Don't continue execution after errors
+set -e
+
+# Fetch the webapp's landing page. If that fails, the script will also fail due
+# to `set -e`. [-L follow (SSL) redirects, -s silent, -f fail on error]
+curl -Lsf http://localhost/ > /dev/null

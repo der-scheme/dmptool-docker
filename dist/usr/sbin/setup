@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Don't continue execution after errors
+set -e
+
+app_setup () {
+  cd /var/www/app/config
+
+  cp layout.rb.template layout.rb
+  cp database.yml.template database.yml
+  cp shibboleth.yml.template shibboleth.yml
+}
+
+nginx_setup () {
+  cd /etc/nginx
+}
+
+_setup () {
+  app_setup
+  nginx_setup
+}
+
+_setup
