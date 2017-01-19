@@ -5,21 +5,16 @@ MAINTAINER Sebastian Dufner "dufners@informatik.uni-freiburg.de"
 ARG GIT=https://github.com/der-scheme/dmptool.git
 ARG RELEASE=freiburg
 #
-ARG HOSTNAME=localhost
 ARG HTTP_PORT=80
 ARG HTTPS_PORT=443
 
 # Image metadata
 LABEL org.dmptool.git.remote=$GIT \
       org.dmptool.git.release=$RELEASE \
-      server.hostname=$HOSTNAME \
       server.http.port=$HTTP_PORT \
       server.https.port=$HTTPS_PORT \
       description="" \
       version="0.1"
-
-# Set the hostname
-RUN hostname $HOSTNAME
 
 # Copy scripts and binaries
 COPY dist/usr/sbin/* /usr/local/sbin/
