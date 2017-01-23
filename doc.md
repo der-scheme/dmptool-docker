@@ -18,6 +18,14 @@ root.
   * **ssl.conf** – TLS configuration for Nginx. Uncomment and modify available
     directives as needed.
 
+#### etc/shibboleth
+  * **conf/etc/shibboleth/attribute-map.xml** – nothing to be done, unless you
+    need to define custom attributes.
+  * **conf/etc/shibboleth/attribute-policy.xml** – nothing to be done, unless
+    you need to define custom attributes.
+  * **conf/etc/shibboleth/shibboleth2.xml** – the main Shibboleth configuration
+    file.
+
 #### etc/ssl
 Put your SSL certificates here.
 
@@ -89,14 +97,30 @@ LDAP was not included for two reasons:
 Having the MYSQL service in another container or connecting to an existing
 instance is better.
 
-## DMPTool configuration
+## Image configuration
+As an initial step, run the image with the `setup` command. This will create all
+runtime configuration files in the right places. Then continue by configuring
+the services, as explained in the sections below.
 
 ### Authentication (Shibboleth)
-Configure Shibboleth by correctly modifying all tags prefixed by
-```<!-- CHANGEME -->```.
+Shibboleth is preconfigured, except for some specific settings. Configure it by
+correctly modifying all tags prefixed by a `<!-- CHANGEME -->` comment.
 
 ### LDAP (not included)
 Although provided by the DMPTool, the project specification explicitly did not
 include LDAP support. However, enabling it should be as easy as mounting a valid
 configuration in a Docker volume at **/var/www/app/config/ldap.yml**.
 
+### Nginx
+The provided configuration should be complete for testing purposes. For
+production, you should enable TLS by providing SSL certificates and modifying
+**ssl.conf** accordingly.
+
+### Webapp (DMPTool)
+DMPTool configuration consists of four different parts:
+ 1. Application config: Fill out **app_config.yml**.
+ 2. Database config: Fill in your database credentials in **database.yml**.
+ 3. Shibboleth: Change the `host` attribute to your web server's hostname.
+ 4. Frontend config: The **layout.rb** config allows you to rearrange the header
+    navigation, as well as the footer. You'll probably want to adjust the
+    copyright notice (`footer.credits`), at least.
