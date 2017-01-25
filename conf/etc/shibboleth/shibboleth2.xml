@@ -18,10 +18,19 @@
     For examples with the RequestMap XML syntax instead, see the example-shibboleth2.xml
     file, and the https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPRequestMapHowTo topic.
     -->
+    <RequestMapper type="XML">
+        <RequestMap>
+            <!-- CHANGEME -->
+            <Host name="example.org" redirectToSSL="443"
+                  authType="shibboleth" requireSession="true">
+                <Path name="/auth/shibboleth/callback" />
+            </Host>
+        </RequestMap>
+    </RequestMapper>
 
     <!-- The ApplicationDefaults element is where most of Shibboleth's SAML bits are defined. -->
     <!-- CHANGEME -->
-    <ApplicationDefaults entityID="https://sp.example.org/shibboleth"
+    <ApplicationDefaults entityID="https://example.org/Shibboleth.sso/Metadata"
                          REMOTE_USER="eppn persistent-id targeted-id">
 
         <!--
