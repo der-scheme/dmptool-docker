@@ -1,0 +1,12 @@
+# FastCGI authorizer for Auth Request module
+location = /shibauthorizer {
+    internal;
+    include fastcgi_params;
+    fastcgi_pass unix:/run/shibboleth/shibauthorizer.sockk;
+}
+
+# FastCGI responder
+location /Shibboleth.sso {
+    include fastcgi_params;
+    fastcgi_pass unix:/run/shibboleth/shibresponder.sock;
+}
