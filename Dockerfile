@@ -23,7 +23,7 @@ COPY dist/usr/sbin/* /usr/local/sbin/
 COPY dist/etc/* /etc/
 
 # Have root own the application directory, but enable www-data group everywhere
-RUN mkdir /var/www/app && chgrp www-data /var/www/app && chmod g+s /var/www/app
+RUN mkdir -p /var/www/app && chgrp www-data /var/www/app && chmod g+s /var/www/app
 #
 # Setup the web app's codebase
 ADD $GIT#$RELEASE /var/www/app
