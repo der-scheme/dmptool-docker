@@ -38,7 +38,7 @@ RUN apt-get update \
         build-essential \
         curl \
         nginx \
-        ruby2.1-dev \
+        bundler \
         shibboleth-sp2-utils \
         supervisor \
     && rm -rf /var/lib/apt/lists/* \
