@@ -29,7 +29,7 @@ RUN mkdir -p /var/www/app && chgrp www-data /var/www/app && chmod g+s /var/www/a
 ADD $GIT#$RELEASE /var/www/app
 #
 # www-data should be able to do everything with the tmp directory
-RUN chown -R www-data /var/www/app/tmp
+RUN mkdir /var/www/app/tmp && chown www-data /var/www/app/tmp
 
 # Install dependencies
 RUN apt-get update \
