@@ -29,6 +29,7 @@ RUN apt-get update \
         build-essential \
         curl \
         git \
+        libmysqlclient-dev \
         nginx \
         bundler \
         shibboleth-sp2-utils \
