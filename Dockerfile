@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:latest
 MAINTAINER Sebastian Dufner "dufners@informatik.uni-freiburg.de"
 
 # Declare build parameters
