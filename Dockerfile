@@ -22,26 +22,33 @@ COPY dist/usr/sbin/* /usr/local/sbin/
 # Copy static/initial configuration
 COPY dist/etc/* /etc/
 
-# Have root own the application directory, but enable www-data group everywhere
-RUN mkdir -p /var/www/app && chgrp www-data /var/www/app && chmod g+s /var/www/app
-#
-# Setup the web app's codebase
-ADD $GIT#$RELEASE /var/www/app
-#
-# www-data should be able to do everything with the tmp directory
-RUN mkdir /var/www/app/tmp && chown www-data /var/www/app/tmp
-
-# Install dependencies
+# Install packages
 RUN apt-get update \
     && apt-get install -y \
         bash \
         build-essential \
         curl \
+        git \
         nginx \
         bundler \
         shibboleth-sp2-utils \
         supervisor \
-    && rm -rf /var/lib/apt/lists/* \
+        zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Have root own the application directory, but enable www-data group everywhere
+RUN mkdir -p          /var/www/app /var/www/.bundler \
+    && chgrp www-data /var/www/app /var/www/.bundler \
+    && chmod g+s,g-w  /var/www/app /var/www/.bundler \
+#
+# Setup the web app's codebase
+    && git clone --branch $RELEASE --single-branch --depth 1 $GIT /var/www/app \
+#
+# www-data should be able to do everything with the tmp directory
+    && mkdir /var/www/app/tmp \
+    && chown www-data /var/www/app/tmp \
+#
+# Install app dependencies
     && cd /var/www/app && bundle install --without development test
 
 EXPOSE $HTTP_PORT $HTTPS_PORT
