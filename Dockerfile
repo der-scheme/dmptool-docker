@@ -54,7 +54,7 @@ RUN cd /var/www/app \
     # tidy-ext doesn't compile with Debian's default MRI cflags.
     && bundle config build.tidy-ext --with-cflags="-O2 -pipe -march=native" \
     # Really install dependencies
-    && bundle install --without development test
+    && bundle install --deployment --without development test
 
 EXPOSE $HTTP_PORT $HTTPS_PORT
 
