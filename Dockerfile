@@ -56,6 +56,12 @@ RUN cd /var/www/app \
     # Really install dependencies
     && bundle install --deployment --without development test
 
+# I don't know why, but gems are installed with disregard towards our directory
+# permissions. So we do the stuff from above again and remove it when the issue
+# is fixed.
+RUN chgrp www-data    /var/www/app /var/www/.bundler \
+    && chmod g+s,g-w  /var/www/app /var/www/.bundler
+
 EXPOSE $HTTP_PORT $HTTPS_PORT
 
 HEALTHCHECK --interval=1m --timeout=5s CMD /usr/local/sbin/healthcheck
