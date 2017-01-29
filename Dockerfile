@@ -39,17 +39,21 @@ RUN apt-get update \
 # Have root own the application directory, but enable www-data group everywhere
 RUN mkdir -p          /var/www/app /var/www/.bundler \
     && chgrp www-data /var/www/app /var/www/.bundler \
-    && chmod g+s,g-w  /var/www/app /var/www/.bundler \
-#
+    && chmod g+s,g-w  /var/www/app /var/www/.bundler
+
 # Setup the web app's codebase
-    && git clone --branch $RELEASE --single-branch --depth 1 $GIT /var/www/app \
+RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT /var/www/app \
 #
 # www-data should be able to do everything with the tmp directory
     && mkdir /var/www/app/tmp \
-    && chown www-data /var/www/app/tmp \
-#
+    && chown www-data /var/www/app/tmp
+
 # Install app dependencies
-    && cd /var/www/app && bundle install --without development test
+RUN cd /var/www/app \
+    # tidy-ext doesn't compile with Debian's default MRI cflags.
+    && bundle config build.tidy-ext --with-cflags="-O2 -pipe -march=native" \
+    # Really install dependencies
+    && bundle install --without development test
 
 EXPOSE $HTTP_PORT $HTTPS_PORT
 
