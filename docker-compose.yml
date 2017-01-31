@@ -10,7 +10,7 @@ services:
       - ./conf/etc/nginx/ssl.conf:/etc/nginx/ssl.conf
       - ./conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
       - ./conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
-      - ./conf/etc/ssl/:/etc/ssl/
+      - ./conf/etc/ssl/extern/:/etc/ssl/extern/
       - ./conf/var/www/app/config/app_config.rb:/var/www/app/config/app_config.rb
       - ./conf/var/www/app/config/layout.rb:/var/www/app/config/layout.rb
       - ./conf/var/www/app/config/database.yml:/var/www/app/config/database.yml

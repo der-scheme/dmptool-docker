@@ -98,7 +98,7 @@
           <MetadataProvider type="XML" uri="https://www.aai.dfn.de/fileadmin/metadata/DFN-AAI-Test-metadata.xml"
                             backingFilePath="DFN-AAI-Test-metadata.xml" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="/etc/ssl/dfn-aai.pem"/>
+            <MetadataFilter type="Signature" certificate="/etc/ssl/extern/dfn-aai.pem"/>
           </MetadataProvider>
        </MetadataProvider>
 
