@@ -6,15 +6,10 @@ ARG GIT=https://github.com/der-scheme/dmptool.git
 ARG RELEASE=freiburg
 #
 ARG JOBS=4
-#
-ARG HTTP_PORT=80
-ARG HTTPS_PORT=443
 
 # Image metadata
 LABEL org.dmptool.git.remote=$GIT \
       org.dmptool.git.release=$RELEASE \
-      server.http.port=$HTTP_PORT \
-      server.https.port=$HTTPS_PORT \
       description="" \
       version="0.1"
 
@@ -64,7 +59,7 @@ RUN cd /var/www/app \
 RUN chgrp www-data    /var/www/app /var/www/.bundler \
     && chmod g+s,g-w  /var/www/app /var/www/.bundler
 
-EXPOSE $HTTP_PORT $HTTPS_PORT
+EXPOSE 80 443
 
 HEALTHCHECK --interval=1m --timeout=5s CMD /usr/local/sbin/healthcheck
 
