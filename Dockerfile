@@ -5,6 +5,8 @@ MAINTAINER Sebastian Dufner "dufners@informatik.uni-freiburg.de"
 ARG GIT=https://github.com/der-scheme/dmptool.git
 ARG RELEASE=freiburg
 #
+ARG JOBS=4
+#
 ARG HTTP_PORT=80
 ARG HTTPS_PORT=443
 
@@ -54,7 +56,7 @@ RUN cd /var/www/app \
     # tidy-ext doesn't compile with Debian's default MRI cflags.
     && bundle config build.tidy-ext --with-cflags="-O2 -pipe -march=native" \
     # Really install dependencies
-    && bundle install --deployment --without development test
+    && bundle install --jobs $JOBS  --deployment --without development test
 
 # I don't know why, but gems are installed with disregard towards our directory
 # permissions. So we do the stuff from above again and remove it when the issue
