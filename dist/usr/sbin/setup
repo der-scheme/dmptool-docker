@@ -3,12 +3,6 @@
 # Don't continue execution after errors
 set -e
 
-HOSTNAME=$1
-
-print_usage () {
-  echo "Usage: setup HOSTNAME" >&2
-}
-
 app_setup () {
   cd /var/www/app/config
 
@@ -19,22 +13,12 @@ app_setup () {
   cp shibboleth.yml.template shibboleth.yml
 }
 
-hostname_setup () {
-  if [ "$HOSTNAME"x = x ]; then
-    print_usage
-    return 1
-  fi
-
-  hostname $HOSTNAME
-}
-
 nginx_setup () {
   cd /etc/nginx
 }
 
 _setup () {
   app_setup
-  hostname_setup
   nginx_setup
 }
 
