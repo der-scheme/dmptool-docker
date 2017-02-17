@@ -12,12 +12,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ${PWD}/conf/etc/nginx/custom.conf:/etc/nginx/custom.conf
-      - ${PWD}/conf/etc/nginx/ssl.conf:/etc/nginx/ssl.conf
-      - ${PWD}/conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
-      - ${PWD}/conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
-      - ${PWD}/conf/etc/ssl/extern/:/etc/ssl/extern/
-      - ${PWD}/conf/var/www/app/config/app_config.yml:/var/www/app/config/app_config.yml
-      - ${PWD}/conf/var/www/app/config/layout.rb:/var/www/app/config/layout.rb
-      - ${PWD}/conf/var/www/app/config/database.yml:/var/www/app/config/database.yml
-      - ${PWD}/conf/var/www/app/config/shibboleth.yml:/var/www/app/config/shibboleth.yml
+      - ./conf/etc/nginx/custom.conf:/etc/nginx/custom.conf
+      - ./conf/etc/nginx/ssl.conf:/etc/nginx/ssl.conf
+      - ./conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
+      - ./conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
+      - ./conf/etc/ssl/extern/:/etc/ssl/extern/
+      - ./conf/var/www/app/config/app_config.yml:/var/www/app/config/app_config.yml
+      - ./conf/var/www/app/config/layout.rb:/var/www/app/config/layout.rb
+      - ./conf/var/www/app/config/database.yml:/var/www/app/config/database.yml
+      - ./conf/var/www/app/config/shibboleth.yml:/var/www/app/config/shibboleth.yml
