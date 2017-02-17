@@ -16,3 +16,7 @@ Makefile.in
 /install-sh
 /missing
 /stamp-h1
+
+/var/www/app/config/layout.rb
+/var/www/app/config/database.yml
+/var/www/app/config/shibboleth.yml
