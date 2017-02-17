@@ -17,7 +17,7 @@ services:
       - ${PWD}/conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
       - ${PWD}/conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
       - ${PWD}/conf/etc/ssl/extern/:/etc/ssl/extern/
-      - ${PWD}/conf/var/www/app/config/app_config.rb:/var/www/app/config/app_config.rb
+      - ${PWD}/conf/var/www/app/config/app_config.yml:/var/www/app/config/app_config.yml
       - ${PWD}/conf/var/www/app/config/layout.rb:/var/www/app/config/layout.rb
       - ${PWD}/conf/var/www/app/config/database.yml:/var/www/app/config/database.yml
       - ${PWD}/conf/var/www/app/config/shibboleth.yml:/var/www/app/config/shibboleth.yml
