@@ -12,7 +12,9 @@ print_usage () {
 app_setup () {
   cd /var/www/app/config
 
-  cp layout.rb.template layout.rb
+  if [ -f layout.rb.template ]; then
+    cp layout.rb.template layout.rb
+  fi
   cp database.yml.template database.yml
   cp shibboleth.yml.template shibboleth.yml
 }
