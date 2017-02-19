@@ -63,4 +63,4 @@ EXPOSE 80 443
 
 HEALTHCHECK --interval=1m --timeout=5s CMD /usr/local/sbin/healthcheck
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
