@@ -14,10 +14,10 @@ LABEL org.dmptool.git.remote=$GIT \
       version="0.1"
 
 # Copy scripts and binaries
-COPY dist/usr/sbin/* /usr/local/sbin/
+COPY dist/usr/sbin /usr/local/sbin/
 
 # Copy static/initial configuration
-COPY dist/etc/* /etc/
+COPY dist/etc /etc/
 
 # Install packages
 RUN apt-get update \
