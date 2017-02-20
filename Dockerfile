@@ -22,6 +22,7 @@ RUN apt-get update \
         git \
         libmysqlclient-dev \
         nginx \
+        nginx-extras \
         bundler \
         shibboleth-sp2-utils \
         supervisor \
