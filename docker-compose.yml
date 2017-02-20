@@ -4,9 +4,9 @@ services:
     build:
       context: .
       args:
-        GIT: https://github.com/der-scheme/dmptool.git
-        RELEASE: build-test
-        JOBS: 4
+        GIT: ${DMPTOOL_REPOSITORY}
+        RELEASE: ${DMPTOOL_RELEASE}
+        JOBS: ${CPU_CORES}
     network_mode: "host"
     ports:
       - "80:80"
