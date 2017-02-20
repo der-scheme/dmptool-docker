@@ -51,8 +51,8 @@ RUN cd /var/www/app \
 # I don't know why, but gems are installed with disregard towards our directory
 # permissions. So we do the stuff from above again and remove it when the issue
 # is fixed.
-RUN chgrp -R www-data    /var/www/app /var/www/vendor/bundle \
-    && chmod -R g+s,g-w  /var/www/app /var/www/vendor/bundle
+RUN chgrp www-data    /var/www/app /var/www/.bundler \
+    && chmod g+s,g-w  /var/www/app /var/www/.bundler
 
 # Copy scripts and binaries
 COPY dist/usr/sbin /usr/local/sbin/
