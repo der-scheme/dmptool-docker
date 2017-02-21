@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+
+apt-install () {
+  apt-get update
+  apt-get install -y $@
+  rm -rf /var/lib/apt/lists/*
+}
+
+dnf-install () {
+  dnf install -y $@
+  dnf clean all
+}
+
+yum-install () {
+  yum install -y $@
+  yum clean all
+}
+
+zypper-install () {
+  zypper --non-interactive install $@
+}
+
+command=${1#--}
+shift
+
+${command}-install "$@"
