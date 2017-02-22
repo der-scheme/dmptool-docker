@@ -13,6 +13,9 @@ LABEL org.dmptool.git.remote=$GIT \
       description="" \
       version="0.1"
 
+# Copy scripts and binaries
+COPY dist/usr/sbin /usr/local/sbin/
+
 # Install packages
 RUN apt-get update \
     && apt-get install -y \
@@ -53,9 +56,6 @@ RUN cd /var/www/app \
 # is fixed.
 RUN chgrp -R www-data    /var/www/app/vendor/bundle \
     && chmod -R g+s,g-w  /var/www/app/vendor/bundle
-
-# Copy scripts and binaries
-COPY dist/usr/sbin /usr/local/sbin/
 
 # Copy static/initial configuration
 COPY dist/etc /etc/
