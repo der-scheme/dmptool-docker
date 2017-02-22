@@ -17,8 +17,7 @@ LABEL org.dmptool.git.remote=$GIT \
 COPY dist/usr/sbin /usr/local/sbin/
 
 # Install packages
-RUN apt-get update \
-    && apt-get install -y \
+RUN install-packages --apt \
         bash \
         build-essential \
         curl \
@@ -29,8 +28,7 @@ RUN apt-get update \
         bundler \
         shibboleth-sp2-utils \
         supervisor \
-        zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/*
+        zlib1g-dev
 
 # Have root own the application directory, but enable www-data group everywhere
 RUN mkdir -p          /var/www/app /var/www/.bundler \
