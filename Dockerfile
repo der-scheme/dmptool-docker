@@ -18,15 +18,14 @@ COPY dist/usr/sbin /usr/local/sbin/
 
 # Install packages
 RUN install-packages --apt \
+        apache2 \
         bash \
         build-essential \
         curl \
         git \
+        libapache2-mod-shib2 \
         libmysqlclient-dev \
-        nginx \
-        nginx-extras \
         bundler \
-        shibboleth-sp2-utils \
         supervisor \
         zlib1g-dev
 
