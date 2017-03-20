@@ -13,8 +13,9 @@ services:
       - "443:443"
     volumes:
       - ${MYSQLD_SOCKET}:/var/run/mysqld/mysqld.sock
-      - ./conf/etc/nginx/custom.conf:/etc/nginx/custom.conf
-      - ./conf/etc/nginx/ssl.conf:/etc/nginx/ssl.conf
+      - ./conf/etc/apache2/conf/custom.conf:/etc/apache2/conf/custom.conf
+      - ./conf/etc/apache2/conf/name.conf:/etc/apache2/conf/name.conf
+      - ./conf/etc/apache2/conf/ssl.conf:/etc/apache2/conf/ssl.conf
       - ./conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
       - ./conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
       - ./conf/etc/ssl/extern/:/etc/ssl/extern/
