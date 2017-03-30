@@ -57,6 +57,11 @@ RUN chgrp -R www-data    /var/www/app/vendor/bundle \
 # Copy static/initial configuration
 COPY dist/etc /etc/
 
+# Setup apache
+RUN a2enmod proxy_http \
+    && a2ensite dmptool \
+    && a2ensite dmptool_ssl
+
 EXPOSE 80 443
 
 HEALTHCHECK --interval=1m --timeout=5s CMD /usr/local/sbin/healthcheck
