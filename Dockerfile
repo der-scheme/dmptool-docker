@@ -10,6 +10,8 @@ ARG JOBS=4
 
 # Environments
 ENV RAILS_ENV=${RAILS_ENV}
+ENV RAILS_ROOT=/var/www/app
+
 # Image metadata
 LABEL org.dmptool.git.remote=$GIT \
       org.dmptool.git.release=$RELEASE \
@@ -33,19 +35,19 @@ RUN install-packages --apt \
         zlib1g-dev
 
 # Have root own the application directory, but enable www-data group everywhere
-RUN mkdir -p          /var/www/app /var/www/.bundler \
-    && chgrp www-data /var/www/app /var/www/.bundler \
-    && chmod g+s,g-w  /var/www/app /var/www/.bundler
+RUN mkdir -p          ${RAILS_ROOT} /var/www/.bundler \
+    && chgrp www-data ${RAILS_ROOT} /var/www/.bundler \
+    && chmod g+s,g-w  ${RAILS_ROOT} /var/www/.bundler
 
 # Setup the web app's codebase
-RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT /var/www/app \
+RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT ${RAILS_ROOT} \
 #
 # www-data should be able to do everything with the tmp directory
-    && mkdir /var/www/app/tmp \
-    && chown www-data /var/www/app/tmp
+    && mkdir ${RAILS_ROOT}/tmp \
+    && chown www-data ${RAILS_ROOT}/tmp
 
 # Install app dependencies
-RUN cd /var/www/app \
+RUN cd ${RAILS_ROOT} \
     # tidy-ext doesn't compile with Debian's default MRI cflags.
     && bundle config build.tidy-ext --with-cflags="-O2 -pipe -march=native" \
     # Really install dependencies
@@ -54,8 +56,8 @@ RUN cd /var/www/app \
 # I don't know why, but gems are installed with disregard towards our directory
 # permissions. So we do the stuff from above again and remove it when the issue
 # is fixed.
-RUN chgrp -R www-data    /var/www/app/vendor/bundle \
-    && chmod -R g+s,g-w  /var/www/app/vendor/bundle
+RUN chgrp -R www-data    ${RAILS_ROOT}/vendor/bundle \
+    && chmod -R g+s,g-w  ${RAILS_ROOT}/vendor/bundle
 
 # Copy static/initial configuration
 COPY dist/etc /etc/
