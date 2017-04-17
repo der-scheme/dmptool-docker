@@ -4,9 +4,12 @@ MAINTAINER Sebastian Dufner "dufners@informatik.uni-freiburg.de"
 # Declare build parameters
 ARG GIT=https://github.com/der-scheme/dmptool.git
 ARG RELEASE=freiburg
+ARG RAILS_ENV=production
 #
 ARG JOBS=4
 
+# Environments
+ENV RAILS_ENV=${RAILS_ENV}
 # Image metadata
 LABEL org.dmptool.git.remote=$GIT \
       org.dmptool.git.release=$RELEASE \
