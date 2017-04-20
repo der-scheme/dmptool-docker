@@ -4,5 +4,6 @@
 set -e
 
 # Fetch the webapp's landing page. If that fails, the script will also fail due
-# to `set -e`. [-L follow (SSL) redirects, -s silent, -f fail on error]
-curl -Lsf http://localhost/ > /dev/null
+# to `set -e`.
+# [-L follow (SSL) redirects, -s silent, -f fail on error, -m timeout]
+curl -Lsf -m60 http://localhost/ > /dev/null
