@@ -2,6 +2,7 @@ FROM debian:latest
 MAINTAINER Sebastian Dufner "dufners@informatik.uni-freiburg.de"
 
 # Declare build parameters
+ARG APP_DIR=/var/www/app
 ARG GIT=https://github.com/der-scheme/dmptool.git
 ARG RELEASE=freiburg
 ARG RAILS_ENV=production
@@ -9,6 +10,7 @@ ARG RAILS_ENV=production
 ARG JOBS=4
 
 # Environments
+ENV APP_DIR=${APP_DIR}
 ENV RAILS_ENV=${RAILS_ENV}
 ENV RAILS_ROOT=/var/www/app
 
