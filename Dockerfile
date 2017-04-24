@@ -37,9 +37,9 @@ RUN install-packages --apt \
         zlib1g-dev
 
 # Have root own the application directory, but enable www-data group everywhere
-RUN mkdir -p          ${RAILS_ROOT} /var/www/.bundler \
-    && chgrp www-data ${RAILS_ROOT} /var/www/.bundler \
-    && chmod g+s,g-w  ${RAILS_ROOT} /var/www/.bundler
+RUN mkdir -p          ${RAILS_ROOT} ${RAILS_ROOT}/../.bundler \
+    && chgrp www-data ${RAILS_ROOT} ${RAILS_ROOT}/../.bundler \
+    && chmod g+s,g-w  ${RAILS_ROOT} ${RAILS_ROOT}/../.bundler
 
 # Setup the web app's codebase
 RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT ${RAILS_ROOT} \
