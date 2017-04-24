@@ -24,3 +24,4 @@ services:
       - ./conf/var/www/app/config/layout.rb:${APP_DIR}/config/layout.rb
       - ./conf/var/www/app/config/database.yml:${APP_DIR}/config/database.yml
       - ./conf/var/www/app/config/shibboleth.yml:${APP_DIR}/config/shibboleth.yml
+      - ./conf/db/schema.rb:${APP_DIR}/db/schema.rb
