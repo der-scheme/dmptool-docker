@@ -4,10 +4,9 @@ services:
     build:
       context: .
       args:
-        APP_DIR: /var/www/app
         GIT: ${DMPTOOL_REPOSITORY}
-        JOBS: ${CPU_CORES}
         RELEASE: ${DMPTOOL_RELEASE}
+        JOBS: ${CPU_CORES}
     network_mode: "host"
     ports:
       - "80:80"
@@ -20,8 +19,8 @@ services:
       - ./conf/etc/shibboleth/attribute-map.xml:/etc/shibboleth/attribute-map.xml
       - ./conf/etc/shibboleth/shibboleth2.xml:/etc/shibboleth/shibboleth2.xml
       - ./conf/etc/ssl/extern/:/etc/ssl/extern/
-      - ./conf/var/www/app/config/app_config.yml:${APP_DIR}/config/app_config.yml
-      - ./conf/var/www/app/config/layout.rb:${APP_DIR}/config/layout.rb
-      - ./conf/var/www/app/config/database.yml:${APP_DIR}/config/database.yml
-      - ./conf/var/www/app/config/shibboleth.yml:${APP_DIR}/config/shibboleth.yml
+      - ./conf/var/www/app/config/app_config.yml:/var/www/app/config/app_config.yml
+      - ./conf/var/www/app/config/layout.rb:/var/www/app/config/layout.rb
+      - ./conf/var/www/app/config/database.yml:/var/www/app/config/database.yml
+      - ./conf/var/www/app/config/shibboleth.yml:/var/www/app/config/shibboleth.yml
       - ./conf/db/schema.rb:${APP_DIR}/db/schema.rb
