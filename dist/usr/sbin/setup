@@ -1,25 +1,67 @@
 #!/usr/bin/env bash
 
-# Don't continue execution after errors
-set -e
+# Runs a command in a context, or more precise, function `$1_$2'.
+# Substitutes all for the second parameter if not given.
+run () {
+  context=$1
+  command=$2
 
-app_setup () {
-  cd /var/www/app/config
-
-  if [ -f layout.rb.template ]; then
-    cp layout.rb.template layout.rb
+  if [ _$command = _ ]; then
+    command=all
   fi
-  cp database.yml.template database.yml
-  cp shibboleth.yml.template shibboleth.yml
+
+  ${context}_$command
 }
 
-nginx_setup () {
-  cd /etc/nginx
+setup_all () {
+  run setup assets
+  run setup db
 }
 
-_setup () {
-  app_setup
-  nginx_setup
+setup_assets () {
+  run setup_assets
 }
 
-_setup
+setup_assets_all () {
+  run assets clobber
+  run assets precompile
+}
+
+setup_assets_clean () {
+  sudo -u www-data bundle exec rake assets:clean
+}
+
+setup_assets_clobber () {
+  sudo -u www-data bundle exec rake assets:clobber
+}
+
+setup_assets_precompile () {
+  sudo -u www-data bundle exec rake assets:precompile
+}
+
+setup_db () {
+  run setup_db "$@"
+}
+
+setup_db_all () {
+  run setup_db setup
+}
+
+setup_db_create () {
+  sudo -u www-data bundle exec rake db:create
+}
+
+setup_db_migrate () {
+  sudo -u www-data bundle exec rake db:migrate
+}
+
+setup_db_seed () {
+  sudo -u www-data bundle exec rake db:seed
+}
+
+setup_db_setup () {
+  sudo -u www-data bundle exec rake db:setup
+}
+
+cd /var/www/app
+run setup "$@"
