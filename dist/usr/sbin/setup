@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# A custom alias that switches to user www-data and keeps the current
+# environment
+alias su-www-data='sudo -u www-data -E'
+
 # Runs a command in a context, or more precise, function `$1_$2'.
 # Substitutes all for the second parameter if not given.
 run () {
@@ -28,15 +32,15 @@ setup_assets_all () {
 }
 
 setup_assets_clean () {
-  sudo -u www-data bundle exec rake assets:clean
+  su-www-data bundle exec rake assets:clean
 }
 
 setup_assets_clobber () {
-  sudo -u www-data bundle exec rake assets:clobber
+  su-www-data bundle exec rake assets:clobber
 }
 
 setup_assets_precompile () {
-  sudo -u www-data bundle exec rake assets:precompile
+  su-www-data bundle exec rake assets:precompile
 }
 
 setup_db () {
@@ -48,19 +52,19 @@ setup_db_all () {
 }
 
 setup_db_create () {
-  sudo -u www-data bundle exec rake db:create
+  su-www-data bundle exec rake db:create
 }
 
 setup_db_migrate () {
-  sudo -u www-data bundle exec rake db:migrate
+  su-www-data bundle exec rake db:migrate
 }
 
 setup_db_seed () {
-  sudo -u www-data bundle exec rake db:seed
+  su-www-data bundle exec rake db:seed
 }
 
 setup_db_setup () {
-  sudo -u www-data bundle exec rake db:setup
+  su-www-data bundle exec rake db:setup
 }
 
 cd /var/www/app
