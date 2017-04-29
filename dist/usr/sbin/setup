@@ -15,7 +15,7 @@ run () {
 
 # Switches to user www-data and keeps the current environment.
 su-www-data () {
-  sudo -u www-data -E "@"
+  sudo -u www-data -E "$@"
 }
 
 setup_all () {
