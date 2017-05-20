@@ -66,6 +66,7 @@ COPY dist/etc /etc/
 
 # Setup apache
 RUN a2enmod proxy_http \
+    && a2enmod shib2 \
     && a2ensite dmptool \
     && a2ensite dmptool_ssl
 
