@@ -20,8 +20,7 @@
     -->
     <RequestMapper type="XML">
         <RequestMap>
-            <!-- CHANGEME -->
-            <Host name="example.org" redirectToSSL="443"
+            <Host name="${HOSTNAME}" redirectToSSL="443"
                   authType="shibboleth" requireSession="true">
                 <Path name="/auth/shibboleth/callback" />
             </Host>
@@ -29,8 +28,7 @@
     </RequestMapper>
 
     <!-- The ApplicationDefaults element is where most of Shibboleth's SAML bits are defined. -->
-    <!-- CHANGEME -->
-    <ApplicationDefaults entityID="https://example.org/Shibboleth.sso/Metadata"
+    <ApplicationDefaults entityID="https://${HOSTNAME}/Shibboleth.sso/Metadata"
                          REMOTE_USER="eppn persistent-id targeted-id">
 
         <!--
@@ -52,7 +50,7 @@
             (Set discoveryProtocol to "WAYF" for legacy Shibboleth WAYF support.)
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
-            <SSO discoveryProtocol="SAMLDS" discoveryURL="https://wayf.aai.dfn.de/DFN-AAI-Test/wayf">
+            <SSO discoveryProtocol="SAMLDS" discoveryURL="${SHIB_DISCOVERY_URL}">
               SAML2
             </SSO>
 
@@ -76,8 +74,7 @@
         Allows overriding of error template information/filenames. You can
         also add attributes with values that can be plugged into the templates.
         -->
-        <!-- CHANGEME -->
-        <Errors supportContact="root@localhost"
+        <Errors supportContact="${SHIB_SUPPORT_CONTACT}"
             helpLocation="/about.html"
             styleSheet="/shibboleth-sp/main.css"/>
 
@@ -95,10 +92,10 @@
         <MetadataProvider type="XML" file="partner-metadata.xml"/>
         -->
         <MetadataProvider type="Chaining">
-          <MetadataProvider type="XML" uri="https://www.aai.dfn.de/fileadmin/metadata/DFN-AAI-Test-metadata.xml"
-                            backingFilePath="DFN-AAI-Test-metadata.xml" reloadInterval="7200">
+          <MetadataProvider type="XML" uri="${SHIB_METADATA_PROVIDER_URI}"
+                            backingFilePath="${SHIB_METADATA_PROVIDER_BFP}" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="/etc/ssl/extern/dfn-aai.pem"/>
+            <MetadataFilter type="Signature" certificate="/etc/ssl/extern/${SHIB_METADATA_PROVIDER_CERT}dfn-aai.pem"/>
           </MetadataProvider>
        </MetadataProvider>
 
