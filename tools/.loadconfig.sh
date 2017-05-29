@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-set -e
-
 ROOT="${BASH_SOURCE%/*}"/..
 
 export PROJECT_ROOT="$ROOT"
