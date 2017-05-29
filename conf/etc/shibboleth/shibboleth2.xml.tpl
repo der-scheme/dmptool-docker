@@ -95,7 +95,7 @@
           <MetadataProvider type="XML" uri="${SHIB_METADATA_PROVIDER_URI}"
                             backingFilePath="${SHIB_METADATA_PROVIDER_BFP}" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="/etc/ssl/extern/${SHIB_METADATA_PROVIDER_CERT}dfn-aai.pem"/>
+            <MetadataFilter type="Signature" certificate="/etc/ssl/extern/${SHIB_METADATA_PROVIDER_CERT}"/>
           </MetadataProvider>
        </MetadataProvider>
 
