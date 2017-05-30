@@ -2,6 +2,7 @@
 set -e
 
 source "${BASH_SOURCE%/*}"/.loadconfig.sh
+cd "$PROJECT_ROOT"
 
 for infile in $(find . -type f -name '*.tpl')
 do
