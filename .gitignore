@@ -20,10 +20,9 @@ Makefile.in
 /conf/etc/apache2/conf/name.conf
 /conf/etc/apache2/conf/ssl.conf
 /conf/etc/shibboleth/shibboleth2.xml
+/conf/etc/ssl/extern/*
+
 /conf/var/www/app/config/app_config.yml
 /conf/var/www/app/config/database.yml
+/conf/var/www/app/config/layout.rb
 /conf/var/www/app/config/shibboleth.yml
-
-/var/www/app/config/layout.rb
-/var/www/app/config/database.yml
-/var/www/app/config/shibboleth.yml
