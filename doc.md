@@ -14,24 +14,24 @@ by the image maintainer, respectively.
 Hosts files for runtime configuration. Paths shall be mounted at the filesystem
 root.
 
-#### etc/nginx
+These files might not literally exist, but be generated from a template file
+(with extension _.tpl_) when needed.
 
-  * **custom.conf** – custom configuration for Nginx that is included at the end
+#### etc/apache2/conf
+  * **custom.conf** -- custom configuration that is included at the end
     end of the virtual host block. Add whatever additional functionality you
     need here.
-  * **ssl.conf** – TLS configuration for Nginx. Uncomment and modify available
-    directives as needed.
+  * **name.conf** -- controls server names and aliases
+  * **ssl.conf** -- TLS configuration
 
 #### etc/shibboleth
 
-  * **conf/etc/shibboleth/attribute-map.xml** – nothing to be done, unless you
+  * **attribute-map.xml** – nothing to be done, unless you
     need to define custom attributes.
-  * **conf/etc/shibboleth/attribute-policy.xml** – nothing to be done, unless
-    you need to define custom attributes.
-  * **conf/etc/shibboleth/shibboleth2.xml** – the main Shibboleth configuration
+  * **shibboleth2.xml** – the main Shibboleth configuration
     file.
 
-#### etc/ssl
+#### etc/ssl/extern
 
 Put your SSL certificates here.
 
@@ -48,10 +48,6 @@ Hosts files for static configuration baked into the image. Paths are copied to
 the filesystem root, except for everything below **usr**, which is copied to
 **/usr/local**.
 
-#### etc/nginx
-
-  * **conf.d/dmptool.conf** – configuration for the Nginx virtual host.
-
 #### etc/supervisor
 
   * **supervisor.conf** – configuration for the Supervisor process manager.
@@ -64,13 +60,16 @@ the filesystem root, except for everything below **usr**, which is copied to
 
 ### tools
 
-_Nothing here, yet._
+  * **.loadconfig.sh** -- meta shell script that initializes the configuration
+    environment
+  * **generate-configs.sh** -- when invoked, substitutes variables in **.tpl**
+    files and resaves them with their file extension removed
 
 ## Services
 
-The image is running three services, these being Nginx (webserver), Puma (Rails
-application server) and Shibboleth SP (authentication provider), all of them
-managed by the image's main process, Supervisor.
+The image is running three services, these being Apache (webserver),
+Puma (Rails application server) and Shibboleth SP (authentication provider), all
+of them managed by the image's main process, Supervisor.
 
 ### Supervisor
 
@@ -80,7 +79,7 @@ Shibboleth SP.
 Its configuration is baked into the image and thus is located beneath the
 **dist** directory.
 
-### Nginx
+### Apache
 
 The image's web server, providing an interface to Puma and Shibboleth SP.
 Its in-image configuration includes everything required to run the DMPTool with
@@ -101,9 +100,10 @@ The authentication provider.
 A word on services that you might expect, but that were not included in the
 image.
 
-#### Apache
+#### Nginx
 
-Nginx is the web server of choice, thus Apache would be redundant.
+As of this writing, there doesn't exist a distribution of GNU/Linux that ships
+with Shibboleth support for Nginx.
 
 #### LDAP
 
@@ -113,21 +113,30 @@ LDAP was not included for two reasons:
  2. If LDAP support was needed, the institution would already have their own
     LDAP running.
 
-#### MYSQL (and other database systems)
+#### MYSQL (or other database systems)
 
 Having the MYSQL service in another container or connecting to an existing
 instance is better.
 
-## Image configuration
+## Image building
 
-As an initial step, run the image with the `setup` command. This will create all
-runtime configuration files in the right places. Then continue by configuring
-the services, as explained in the sections below.
+Run ``docker-compose build dmptool``, no configuration required.
+
+## Container configuration
+
+As an initial step, open the file **deploy.conf** with an text editor of your
+choice. Adjust the variables as you need them.
+
+_**Note** that although the variable definitions adhere to regular shell syntax,
+it is not evaluated as such. Comments are okay, but commands are not supported.
+For the exact semantics, understand the code in file **tools/.loadconfig.sh**._
+
+Then run ``tools/generate-configs.sh``, which will evaluate all the template
+configs (**.tpl**).
 
 ### Authentication (Shibboleth)
 
-Shibboleth is preconfigured, except for some specific settings. Configure it by
-correctly modifying all tags prefixed by a `<!-- CHANGEME -->` comment.
+_This should be covered by the first step._
 
 ### LDAP (not included)
 
@@ -135,19 +144,16 @@ Although provided by the DMPTool, the project specification explicitly did not
 include LDAP support. However, enabling it should be as easy as mounting a valid
 configuration in a Docker volume at **/var/www/app/config/ldap.yml**.
 
-### Nginx
+### Apache
 
-The provided configuration should be complete for testing purposes. For
-production, you should enable TLS by providing SSL certificates and modifying
-**ssl.conf** accordingly.
+_This should be covered by the first step._
 
 ### Webapp (DMPTool)
 
-DMPTool configuration consists of four different parts:
+_Most of the things needed should be covered by the first step._
 
- 1. Application config: Fill out **app_config.yml**.
- 2. Database config: Fill in your database credentials in **database.yml**.
- 3. Shibboleth: Change the `host` attribute to your web server's hostname.
- 4. Frontend config: The **layout.rb** config allows you to rearrange the header
-    navigation, as well as the footer. You'll probably want to adjust the
-    copyright notice (`footer.credits`), at least.
+You may want to consider adjusting the DMPTool's frontend to your custom
+flavour. To do this, edit the file **conf/var/www/app/config/layout.rb**. Feel
+inspired by the file **config/layout.rb.template** from the DMPTool project.
+
+## Deployment
