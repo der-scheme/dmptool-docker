@@ -7,3 +7,4 @@
 /conf/var/www/app/config/database.yml
 /conf/var/www/app/config/layout.rb
 /conf/var/www/app/config/shibboleth.yml
+/conf/var/www/app/db/schema.rb
