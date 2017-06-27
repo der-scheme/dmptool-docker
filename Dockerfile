@@ -31,7 +31,7 @@ RUN install-packages --apt \
         curl \
         git \
         libapache2-mod-shib2 \
-        libmysqlclient-dev \
+        default-libmysqlclient-dev \
         bundler \
         supervisor \
         zlib1g-dev
