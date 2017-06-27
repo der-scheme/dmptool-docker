@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Runs a command in a context, or more precise, function `$1_$2'.
-# Substitutes all for the second parameter if not given.
+# Substitutes 'all' for the second parameter if not given.
 run () {
   context=$1
   command=$2
