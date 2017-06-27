@@ -28,8 +28,8 @@ setup_assets () {
 }
 
 setup_assets_all () {
-  run assets clobber
-  run assets precompile
+  run setup_assets clobber
+  run setup_assets precompile
 }
 
 setup_assets_clean () {
