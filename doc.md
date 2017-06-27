@@ -124,19 +124,21 @@ Run ``docker-compose build dmptool``, no configuration required.
 
 ## Container configuration
 
-As an initial step, open the file **deploy.conf** with an text editor of your
-choice. Adjust the variables as you need them.
+ 1. As an initial step, open the file **deploy.conf** with a text editor of your
+    choice. Adjust the variables as you need them.
 
-_**Note** that although the variable definitions adhere to regular shell syntax,
-it is not evaluated as such. Comments are okay, but commands are not supported.
-For the exact semantics, understand the code in file **tools/.loadconfig.sh**._
+    _**Note** that although the variable definitions adhere to regular shell
+    syntax, it is not evaluated as such. Comments are okay, but commands are not
+    supported. For the exact semantics, understand the code in file
+    **tools/.loadconfig.sh**._
 
-Then run ``tools/generate-configs.sh``, which will evaluate all the template
-configs (**.tpl**).
+ 2. Run ``tools/generate-configs.sh``, which will evaluate all the config
+    templates (**.tpl**).
+ 3. Configure the individual services, as described in the coming sections.
 
 ### Authentication (Shibboleth)
 
-_This should be covered by the first step._
+_This should be covered by the first steps._
 
 ### LDAP (not included)
 
@@ -146,14 +148,33 @@ configuration in a Docker volume at **/var/www/app/config/ldap.yml**.
 
 ### Apache
 
-_This should be covered by the first step._
+_This should be covered by the first steps._
 
 ### Webapp (DMPTool)
 
-_Most of the things needed should be covered by the first step._
+_Most of the things needed should be covered by the first steps._
 
 You may want to consider adjusting the DMPTool's frontend to your custom
 flavour. To do this, edit the file **conf/var/www/app/config/layout.rb**. Feel
 inspired by the file **config/layout.rb.template** from the DMPTool project.
 
 ## Deployment
+
+ 1. Follow the steps in sections _Image building_ (in case you're building
+    yourself) and _Container configuration_.
+ 2. Setup the database: ``tools/setup.sh db``
+ 3. Precompile the assets: ``tools/setup.sh assets``
+ 4. Finally, invoke ``docker-compose run dmptool`` to deploy the container.
+
+## Upgrading
+
+Debian updates/upgrades or new releases of the DMPTool may want you upgrade your
+installation. Here is how you do that.
+
+ 1. Git-pull the newest release of this project. If you got your image prebuilt
+    from somewhere else, get the latest build from there instead and skip to
+    step 3.
+ 2. Rebuild the image: ``docker-compose build --no-cache dmptool``
+ 3. Update the database: ``tools/setup.sh db migrate``
+ 4. Recompile the assets: ``tools/setup.sh assets precompile``
+ 5. Start the image: ``docker-compose start dmptool``
