@@ -160,10 +160,11 @@ inspired by the file **config/layout.rb.template** from the DMPTool project.
 
 ## Deployment
 
- 1. Follow the steps in sections _Image building_ (in case you're building
+ 1. Copy the web server's SSL certificates to **conf/etc/ssl/extern**, or modify
+    **docker-compose.yml**  such that it points to the correct paths.
+ 2. Follow the steps in sections _Image building_ (in case you're building
     yourself) and _Container configuration_.
- 2. Setup the database: ``tools/setup.sh db``
- 3. Precompile the assets: ``tools/setup.sh assets``
+ 3. Setup database and assets: ``tools/setup.sh``
  4. Finally, invoke ``docker-compose run dmptool`` to deploy the container.
 
 ## Upgrading
