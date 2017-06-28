@@ -44,9 +44,10 @@ RUN mkdir -p          ${RAILS_ROOT} ${RAILS_ROOT}/../.bundler \
 # Setup the web app's codebase
 RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT ${RAILS_ROOT} \
 #
-# www-data should be able to do everything with the tmp directory
+# www-data should be able to do everything with the tmp and public/assets
+# directories
     && mkdir ${RAILS_ROOT}/tmp \
-    && chown www-data ${RAILS_ROOT}/tmp
+    && chown www-data ${RAILS_ROOT}/tmp ${RAILS_ROOT}/public/assets
 
 # Install app dependencies
 RUN cd ${RAILS_ROOT} \
