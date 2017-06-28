@@ -46,7 +46,7 @@ RUN git clone --branch $RELEASE --single-branch --depth 1 $GIT ${RAILS_ROOT} \
 #
 # www-data should be able to do everything with the tmp and public/assets
 # directories
-    && mkdir ${RAILS_ROOT}/tmp \
+    && mkdir          ${RAILS_ROOT}/tmp ${RAILS_ROOT}/public/assets \
     && chown www-data ${RAILS_ROOT}/tmp ${RAILS_ROOT}/public/assets
 
 # Install app dependencies
