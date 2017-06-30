@@ -19,6 +19,7 @@ su-www-data () {
 }
 
 setup_all () {
+  run setup shib
   run setup assets
   run setup db
 }
@@ -66,6 +67,14 @@ setup_db_seed () {
 
 setup_db_setup () {
   su-www-data bundle exec rake db:setup
+}
+
+setup_shib_all () {
+  run setup_shib keys
+}
+
+setup_shib_keys () {
+  shib-keygen -h $1
 }
 
 cd /var/www/app
